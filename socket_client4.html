@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html lang="ko-KR">
+<head>
+	<meta charset="UTF-8">
+	<title>장1</title>
+	<script src="http://test.womennews.co.kr:8000/socket.io/socket.io.js"></script>
+</head>
+<body>
+	<script>
+		var socket = io.connect('http://test.womennews.co.kr:8000');
+		socket.on('connect', function() {
+			socket.emit('join room', 'editor group');
+		});
+		socket.on('disconnect', function() {
+			socket.emit('leave room', 'writer group');
+		});
+		socket.on('news', function (data) {
+			console.log(data);
+			socket.emit('my other event', { whoami: '장1' });
+		});
+		socket.on('message', function (data) {
+			document.write(data);
+		});
+	</script>
+</body>
+</html>
